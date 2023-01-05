@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:login/Provider/form_provider.dart';
 import 'package:login/Provider/user_provider.dart';
 import 'package:login/pages/login.dart';
+import 'package:login/productos/produtos.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());
@@ -16,12 +18,17 @@ class MyApp extends StatelessWidget {
           lazy: false,
           create: (_){
             return RecursosProvider();
-          })
+          }),
+        // ChangeNotifierProvider(
+        //   lazy: false,
+        //   create: (_){
+        //     return UserFormProvider();
+        //   })
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: Login(),
+      home: Productos(),
       
       ),
       );

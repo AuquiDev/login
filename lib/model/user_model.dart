@@ -26,15 +26,16 @@ class UsuarioModel {
 
 class User {
     User({
-      required  this.nombreCompleto,
-      required  this.password,
-      required  this.estatus,
-      required  this.calification,
-      required  this.dni,
-      required  this.direccion,
-      required  this.telefono,
-      required  this.role,
-      required  this.id,
+       required this.nombreCompleto,
+       required this.password,
+       required this.estatus,
+       required this.calification,
+       required this.dni,
+       required this.direccion,
+       required this.telefono,
+       required this.role,
+       required this.image,
+        this.id,
     });
 
     String nombreCompleto;
@@ -45,7 +46,8 @@ class User {
     String direccion;
     int telefono;
     String role;
-    int id;
+    String image;
+    int? id;
 
     factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
@@ -60,6 +62,7 @@ class User {
         direccion: json["direccion"],
         telefono: json["telefono"],
         role: json["role"],
+        image: json["image"] ?? 'https://i.pinimg.com/564x/c5/76/f5/c576f530f067842936c3a4b9b2a93b54.jpg',
         id: json["id"],
     );
 
@@ -72,6 +75,20 @@ class User {
         "direccion": direccion,
         "telefono": telefono,
         "role": role,
+        "image": image,
         "id": id,
     };
+
+    User copy() => User(
+        nombreCompleto: this.nombreCompleto,
+        password: this.password,
+        estatus: this.estatus,
+        calification: this.calification,
+        dni: this.dni,
+        direccion: this.direccion,
+        image: this.image,
+        telefono: this.telefono,
+        role: this.role,
+        id: this.id,
+    );
 }
