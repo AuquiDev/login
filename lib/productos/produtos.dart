@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:login/Provider/user_provider.dart';
-import 'package:login/model/user_model.dart';
+import 'package:login/model/model.dart';
+import 'package:login/pages/modulos/usuarios.dart';
 import 'package:login/productos/product_cart.dart';
-import 'package:login/productos/product_screen.dart';
+
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Productos extends StatefulWidget {
-  const Productos({super.key});
-
+   Productos({super.key,required this.users});
+  User users;
   @override
   State<Productos> createState() => _ProductosState();
 }
@@ -28,7 +30,7 @@ class _ProductosState extends State<Productos> {
             onTap: () {
               userProvider.selectedUser= userProvider.recursoList[index].copy();
               Navigator.push(context, MaterialPageRoute(
-                builder: (context)=>ProductScreen()));
+                builder: (context)=>const UsuarioModule()));//ProductImage()));
             },
             child:  ProductCard(
               user: users[index],
@@ -46,18 +48,22 @@ class _ProductosState extends State<Productos> {
           //               );
         userProvider.selectedUser = 
             User(
-              calification: 0, 
-              dni: 973378223,
-              direccion: 'Av. Nuevo Mirador', 
               nombreCompleto: '', 
-              estatus: false, 
+              apellido: '', 
+              dni: 0,
+              password: '****', 
+              direccion: 'Av. Ejemplo',
+              telefono: 0, 
               image:'https://i.pinimg.com/564x/34/cc/de/34ccde761b4737df092c6efec66d035e.jpg', //7pickerFile!.path, 
-              password: '1234', 
               role: 'cliente', 
-              telefono: 973378223
+              cargo: 'cliente', 
+              correo: 'example@gmail.com', 
+              genero: 'masculino',  
+              estatus: true,
+              calification: 11, 
               );
               
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>const UsuarioModule()));
               setState(() {
               
                   });

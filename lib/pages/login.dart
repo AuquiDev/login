@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:login/Provider/user_provider.dart';
-import 'package:login/model/user_model.dart';
-import 'package:login/pages/cliente.dart';
-import 'package:login/pages/home.dart';
-import 'package:login/pages/usuario.dart';
 import 'package:provider/provider.dart';
+import 'package:login/Provider/user_provider.dart';
+
+import 'package:login/model/model.dart';
+
+import 'package:login/pages/pages.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,11 +23,9 @@ class _LoginState extends State<Login> {
 
     String usuarioCorrecto;
     String passwordCorrecto;
-    // String roleCorrecto;
 
     String username = "";
     String password = "";
-    // String role = "";
 
     void registrase() {}
 
@@ -36,63 +34,22 @@ class _LoginState extends State<Login> {
       if (_formState.validate()) {
         _formState.save();
         for (int i = 0; i < users.length; i++) {
-          usuarioCorrecto = users[i].nombreCompleto;
+          usuarioCorrecto = users[i].dni.toString();
           passwordCorrecto = users[i].password;
           // roleCorrecto = users[i].role;
           if (usuarioCorrecto.toLowerCase() == username.toLowerCase() &&
-                  passwordCorrecto ==
-                      password /* &&
-              roleCorrecto == role*/
-              ) {
-            print('Estte es mi username : ${username}');
-            print('Estte es mi password : ${password}');
-            print('Estte es mi role : ${users[i].role}');
-            print('Estte es mi direccion : ${users[i].direccion}');
-            print('Estte es mi estatus : ${users[i].estatus}');
-            switch (users[i].role) {
-              case 'admin':
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(
-                      username: username,
-                      role: users[i].role,
-                      direccion: users[i].direccion,
-                      status: users[i].estatus,
-                    ),
-                  ),
-                );
-                break;
-              case 'cliente':
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        cliente(
-                         username: username,
-                      role: users[i].role,
-                      direccion: users[i].direccion,
-                      status: users[i].estatus,
-                          ),
-                  ),
-                );
-                break;
-              case 'usuario':
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => usuario(
-                      username: username,
-                      role: users[i].role,
-                      direccion: users[i].direccion,
-                      status: users[i].estatus,
-                    ),
-                  ),
-                );
-                break;
-            }
+              passwordCorrecto == password) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(
+                  i: i,
+                  users: users[i],
+                ),
+              ),
+            );
           } else {
-            print('Este usuario é inválido');
+            print('Este usuario és inválido');
           }
         }
       }
@@ -111,13 +68,13 @@ class _LoginState extends State<Login> {
               Form(
                 key: _formkey,
                 child: Column(
-                  
                   children: [
-                     SizedBox(height: MediaQuery.of(context).size.height * .3,),
+                    Image.network(
+                        'https://i.pinimg.com/564x/8c/bb/2b/8cbb2b0cf456b78ee7e5fa38df3d4c7c.jpg'),
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'usuario',
-                        hintText: 'Introduzca usuario',
+                        labelText: 'DNI',
+                        hintText: 'Introduzca su DNI',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -163,36 +120,23 @@ class _LoginState extends State<Login> {
                         password = value!;
                       },
                     ),
-                    
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          MaterialButton(
-                            color: Colors.redAccent,
-                            onPressed: () {
-                              registrase();
-                              setState(() {});
-                              // Navigator.push(
-                              //   context,
-                              //   // MaterialPageRoute(
-                              //   //   builder: (context) => cliente(
-                              //   //     username: 'Alberto',
-                              //   //     role: '',
-                              //   //   ),
-                              //   // ),
-                              // );
-                            },
-                            child: const Text("Registrarse"),
-                          ),
-                          MaterialButton(
-                            color: Colors.blueAccent,
-                            onPressed: () {
-                              iniciarSesion();
-                              setState(() {});
-                            },
-                            child: const Text('Login'),
-                          )
-                        ])
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(children: [
+                     
+                      Expanded(
+                        child: MaterialButton(
+                          height: 60,
+                          color: Colors.lightBlue[200],
+                          onPressed: () {
+                            iniciarSesion();
+                            setState(() {});
+                          },
+                          child: const Text('Login'),
+                        ),
+                      )
+                    ])
                   ],
                 ),
               ),

@@ -2,16 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProductImage extends StatelessWidget {
    ProductImage({super.key, this.image});
   String? image;
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.all(10),
       // padding: const EdgeInsets.all(20),
       decoration: _decoration(),
-      width: double.infinity,
+      width: width<500 ?  double.infinity : width*.5,
       height: 450,
       child:  Opacity(
         opacity: .8,
@@ -27,15 +29,17 @@ class ProductImage extends StatelessWidget {
   }
 
   Widget getImage(String? picture) {
-     if(picture == null )
-         return  Image.asset('assets/no-image.png',fit: BoxFit.cover,);         
+     if(picture == null ) {
+       return  Image.asset('assets/no-image.png',fit: BoxFit.cover,);
+     }         
          
-     if (picture.startsWith('http'))
+     if (picture.startsWith('http')) {
        return FadeInImage(
             image: NetworkImage(image!),
-            placeholder: AssetImage('assets/no-image.png'),
+            placeholder: const AssetImage('assets/no-image.png'),
             fit: BoxFit.cover,
           );
+     }
 
       return Image.file(
           File(picture),

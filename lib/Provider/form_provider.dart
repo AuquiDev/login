@@ -11,16 +11,16 @@ class UserFormProvider extends ChangeNotifier{
   UserFormProvider(this.userform);
 
   updateAvailability(bool value){
-    print(value);
-    this.userform.estatus = value;
+    // print(value);
+    userform.estatus = value;
     notifyListeners();
   }
   
   bool isValidation(){
-    print(userform.nombreCompleto);
-    print(userform.role);
-    print(userform.estatus);
-    print(userform.direccion);
+    // print(userform.nombreCompleto);
+    // print(userform.role);
+    // print(userform.estatus);
+    // print(userform.direccion);
     return formKey.currentState!.validate() ?? false;
   }
 }
